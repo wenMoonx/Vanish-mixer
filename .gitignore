@@ -1,0 +1,6 @@
+node_modules
+.env
+contracts
+mixer-bot
+build
+_MACOSX
