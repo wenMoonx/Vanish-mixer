@@ -33,15 +33,13 @@ export const SendTransferForm = () => {
     watch: true,
   });
   
-  const { write: writeMixer, data: tx, isError } = useContractWrite({
+  const { write: writeMixer, data: tx } = useContractWrite({
     address: '0xdF9B91aC0E917eA8443b4b7990DF5D88c1410904',
     abi: MixerABI,
     functionName: 'split',
   });
 
-  debugger;
-
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const { isLoading, isSuccess, isError } = useWaitForTransaction({
     hash: tx?.hash,
   });
 
