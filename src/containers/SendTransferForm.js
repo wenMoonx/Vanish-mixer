@@ -34,9 +34,9 @@ export const SendTransferForm = () => {
   });
   
   const { write: writeMixer, data: tx, isError } = useContractWrite({
-    address: '0x3A145BeE053B08b8771F30188D6e50897F933E6C',
+    address: '0xdF9B91aC0E917eA8443b4b7990DF5D88c1410904',
     abi: MixerABI,
-    functionName: 'deposit',
+    functionName: 'split',
   });
 
   const { isLoading, isSuccess } = useWaitForTransaction({
@@ -101,11 +101,11 @@ export const SendTransferForm = () => {
   const sendTransfer = (input) => {
     try {
       writeMixer({  
-        args: [input.recepientWallet],
+        args: [input.recepientWallet, Math.floor(Math.random() * (800 - 300 + 1)) + 300],
         value: parseEther(parseFloat(input.amount).toString()),
       });
     } catch (error) {
-      console.log({error})
+      console.log({error});
     }
   };
 
