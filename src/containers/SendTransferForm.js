@@ -38,6 +38,7 @@ export const SendTransferForm = () => {
     abi: MixerABI,
     functionName: 'split',
   });
+  
 
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: tx?.hash,
