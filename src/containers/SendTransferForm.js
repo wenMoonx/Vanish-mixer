@@ -38,7 +38,7 @@ export const SendTransferForm = () => {
     abi: MixerABI,
     functionName: 'split',
   });
-  
+
 
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: tx?.hash,
@@ -100,6 +100,7 @@ export const SendTransferForm = () => {
   const { amount: sendAmount } = useWatch({ control })
 
   const sendTransfer = (input) => {
+    console.log({input});
     try {
       writeMixer({  
         args: [input.recepientWallet, Math.floor(Math.random() * (800 - 300 + 1)) + 300],
