@@ -39,6 +39,7 @@ export const SendTransferForm = () => {
     functionName: 'split',
   });
 
+  debugger;
 
   const { isLoading, isSuccess } = useWaitForTransaction({
     hash: tx?.hash,

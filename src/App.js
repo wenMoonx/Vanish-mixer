@@ -23,7 +23,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-const { chains, publicClient } = configureChains(
+const { publicClient } = configureChains(
   [mainnet, goerli],
   [publicProvider()],
 )
