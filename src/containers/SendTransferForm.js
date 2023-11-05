@@ -34,12 +34,12 @@ export const SendTransferForm = () => {
   });
   
   const { write: writeMixer, data: tx, isError, error } = useContractWrite({
-    address: '0xdF9B91aC0E917eA8443b4b7990DF5D88c1410904',
+    address: '0x3FDd71719fCe6E854528D2F4a66E35c1e7796564',
     abi: MixerABI,
     functionName: 'split',
   });
 
-  const { isLoading, isSuccess } = useWaitForTransaction({
+  const { isLoading, isSuccess, isError: isWaitError } = useWaitForTransaction({
     hash: tx?.hash,
   });
 
@@ -52,9 +52,8 @@ export const SendTransferForm = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    console.log(error);
-    if (isError) toast.error(error.message);
-  }, [isError]);
+    if (isError || isWaitError) toast.error("An error was occurred on the backend");
+  }, [isError, isWaitError]);
 
 
   const schema = useMemo(() => {

@@ -49,6 +49,24 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_dstAddress",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_divRate",
+        "type": "uint256"
+      }
+    ],
+    "name": "deposit",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "fee",
     "outputs": [
@@ -142,18 +160,13 @@
     "inputs": [
       {
         "internalType": "address",
-        "name": "_dstAddress",
+        "name": "_from",
         "type": "address"
-      },
-      {
-        "internalType": "uint256",
-        "name": "_divRate",
-        "type": "uint256"
       }
     ],
     "name": "split",
     "outputs": [],
-    "stateMutability": "payable",
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -181,7 +194,12 @@
     "outputs": [
       {
         "internalType": "uint256",
-        "name": "balance",
+        "name": "amountA",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "amountB",
         "type": "uint256"
       },
       {
