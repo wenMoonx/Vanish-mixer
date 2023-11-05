@@ -52,6 +52,7 @@ export const SendTransferForm = () => {
   }, [isSuccess]);
 
   useEffect(() => {
+    console.log(error);
     if (isError) toast.error(error.message);
   }, [isError]);
 
