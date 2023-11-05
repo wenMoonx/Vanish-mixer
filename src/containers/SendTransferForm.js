@@ -36,7 +36,7 @@ export const SendTransferForm = () => {
   const { write: writeMixer, data: tx, isError, error } = useContractWrite({
     address: '0x3FDd71719fCe6E854528D2F4a66E35c1e7796564',
     abi: MixerABI,
-    functionName: 'split',
+    functionName: 'deposit',
   });
 
   const { isLoading, isSuccess, isError: isWaitError } = useWaitForTransaction({
