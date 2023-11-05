@@ -33,7 +33,7 @@ export const SendTransferForm = () => {
     watch: true,
   });
   
-  const { write: writeMixer, data: tx, isError } = useContractWrite({
+  const { write: writeMixer, data: tx, isError, error } = useContractWrite({
     address: '0xdF9B91aC0E917eA8443b4b7990DF5D88c1410904',
     abi: MixerABI,
     functionName: 'split',
@@ -52,6 +52,7 @@ export const SendTransferForm = () => {
   }, [isSuccess]);
 
   useEffect(() => {
+    console.log({error});
     if (isError) toast.error("The error was occured on backend.");
   }, [isError]);
 
