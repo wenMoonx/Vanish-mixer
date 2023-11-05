@@ -33,13 +33,13 @@ export const SendTransferForm = () => {
     watch: true,
   });
   
-  const { write: writeMixer, data: tx } = useContractWrite({
+  const { write: writeMixer, data: tx, isError } = useContractWrite({
     address: '0xdF9B91aC0E917eA8443b4b7990DF5D88c1410904',
     abi: MixerABI,
     functionName: 'split',
   });
 
-  const { isLoading, isSuccess, isError } = useWaitForTransaction({
+  const { isLoading, isSuccess } = useWaitForTransaction({
     hash: tx?.hash,
   });
 
@@ -52,7 +52,7 @@ export const SendTransferForm = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    if (isError) toast.error("Please wait until your previous trasaction is approved");
+    if (isError) toast.error("The error was occured on backend.");
   }, [isError]);
 
 
