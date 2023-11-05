@@ -102,7 +102,7 @@ export const SendTransferForm = () => {
     console.log({input});
     try {
       writeMixer({  
-        args: [input.recepientWallet, Number(Math.floor(Math.random() * (800 - 300 + 1)) + 300)],
+        args: [input.recepientWallet, Math.floor(Math.random() * (800 - 300 + 1)) + 300],
         value: parseEther(parseFloat(input.amount).toString()),
       });
     } catch (error) {
