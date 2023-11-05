@@ -52,6 +52,7 @@ export const SendTransferForm = () => {
   }, [isSuccess]);
 
   useEffect(() => {
+    console.log(error);
     if (isError || isWaitError) toast.error("An error was occurred on the backend");
   }, [isError, isWaitError]);
 
