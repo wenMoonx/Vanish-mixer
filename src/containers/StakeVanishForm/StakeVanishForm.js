@@ -95,12 +95,6 @@ export const StakeVanishForm = () => {
     args: [userWallet, 0] // investor wallet, nftBalance
   });
   
-  // const { data: totalInvestsR } = useContractRead({
-  //   address: shibaStakingAddress,
-  //   abi: VanishStakingABI,
-  //   functionName: 'getTotalInvests',
-  // });
-  
   const { data: depositInfo } = useContractRead({
     address: shibaStakingAddress,
     abi: VanishStakingABI,
@@ -114,12 +108,6 @@ export const StakeVanishForm = () => {
     functionName: 'claimInfo',
     args: [userWallet]
   });
-
-
-  // const totalInvests = formatUnits(totalInvestsR, vanishToken?.decimals);
-  // const { isLoading, isSuccess, isError: isWaitError } = useWaitForTransaction({
-  //   hash: stakeTx?.hash,
-  // });
 
   const stakeUnstake = async (values) => {
     try {
@@ -154,9 +142,9 @@ export const StakeVanishForm = () => {
 
   useEffect(() => {
     if (userWallet) {
-      setAvailable(formatUnits(balance?.data?.value, balance?.data?.decimals));
-      setAllowance(formatUnits(allowanceR, vanishToken?.decimals));
-      setClaimableAmount(formatUnits(claimableAmountR, vanishToken?.decimals));
+      setAvailable(formatUnits(parseInt(balance?.data?.value), balance?.data?.decimals));
+      setAllowance(formatUnits(parseInt(allowanceR), vanishToken?.decimals));
+      setClaimableAmount(formatUnits(parseInt(claimableAmountR), vanishToken?.decimals));
     }
   }, [userWallet]);
 
