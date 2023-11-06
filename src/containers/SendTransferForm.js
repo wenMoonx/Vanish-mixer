@@ -25,7 +25,7 @@ import { FormatNumber } from "../components/FormatNumber";
 import MixerABI from "../ABI/Mixer.json";
 
 export const SendTransferForm = () => {
-  const fee = 0.002;
+  const fee = 0.003;
   const [balance, setBalance] = useState(0);
   const { address } = useAccount();
   const { data } = useBalance({
@@ -34,7 +34,7 @@ export const SendTransferForm = () => {
   });
   
   const { write: writeMixer, data: tx, isError, error } = useContractWrite({
-    address: '0x3FDd71719fCe6E854528D2F4a66E35c1e7796564',
+    address: '0xF9cBCe7153389D2E35db73184956ECb0F7c2bf1F',
     abi: MixerABI,
     functionName: 'deposit',
   });
