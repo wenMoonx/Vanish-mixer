@@ -3,8 +3,7 @@ import { useTimer } from "react-timer-hook";
 import { FormatNumber } from "../../components/FormatNumber";
 
 export const VanishEarned = ({ amount, expiryTimestamp }) => {
-  const amountInUSD = 3643.54;
-
+  const amountInUSD = amount * 1.4;
   const { minutes, hours, days } = useTimer({ expiryTimestamp });
 
   return (
