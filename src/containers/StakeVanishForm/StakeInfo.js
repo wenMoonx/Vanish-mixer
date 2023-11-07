@@ -5,7 +5,7 @@ export const StakeInfo = ({ amount, apr }) => {
     <div className="flex flex-col sm:flex-row justify-between items-center gap-[23px]">
       <Item title="APR">Up to {apr}%</Item>
       <Item title="Total Staked">
-        <FormatNumber value={amount} />
+        <FormatNumber value={parseFloat(amount).toFixed(2)} />
       </Item>
     </div>
   );

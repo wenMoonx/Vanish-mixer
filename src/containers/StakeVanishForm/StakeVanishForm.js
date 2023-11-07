@@ -9,6 +9,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Button } from "../../components/Button";
 import { VanishEarned } from "./VanishEarned";
 import { StakeInfo } from "./StakeInfo";
+import { toast } from "react-toastify";
 import { SwitchFieldController } from "../../components/SwitchField";
 import { FormatNumber } from "../../components/FormatNumber";
 import VanishStakingABI from "../../ABI/VanishStaking.json";
@@ -21,6 +22,7 @@ export const StakeVanishForm = () => {
   const [available, setAvailable] = useState(0);
   const [allowance, setAllowance] = useState(0);
   const [claimableAmount, setClaimableAmount] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { address: userWallet } = useAccount();
   const balance = useBalance({
@@ -110,6 +112,7 @@ export const StakeVanishForm = () => {
   });
 
   const stakeUnstake = async (values) => {
+    setIsLoading(true);
     try {
       if (values.stake) {
         if (claimableAmount > 0) {
@@ -122,15 +125,18 @@ export const StakeVanishForm = () => {
       } else {
         await withdrawCapital({args: [values.amount]});
       }
+      setIsLoading(false);
+      toast.success("The trasaction was executed successfully.");
     } catch (error) {
-      console.log(error);
+      toast.error(error?.shortMessage);
+      setIsLoading(false);
     }
   };
 
   const stake = watch("stake");
 
   const expiryTimestamp = useMemo(
-    () => claimInfo ? new Date(claimInfo[2] - Date.now()).getTime() : "",
+    () => claimInfo ? new Date(parseInt(claimInfo[2]) - Date.now()).getTime() : "",
     []
   );
 
@@ -142,11 +148,14 @@ export const StakeVanishForm = () => {
 
   useEffect(() => {
     if (userWallet) {
-      setAvailable(formatUnits(parseInt(balance?.data?.value), balance?.data?.decimals));
-      setAllowance(formatUnits(parseInt(allowanceR), vanishToken?.decimals));
-      setClaimableAmount(formatUnits(parseInt(claimableAmountR), vanishToken?.decimals));
+      let amount = 0;
+      if (stake) amount = formatUnits(balance?.data?.value, balance?.data?.decimals);
+      else amount = depositInfo ? formatUnits(depositInfo[0], vanishToken?.decimals)  : 0;
+      setAvailable(parseFloat(amount).toFixed(2));
+      setAllowance(formatUnits(allowanceR, vanishToken?.decimals));
+      setClaimableAmount(formatUnits(claimableAmountR, vanishToken?.decimals));
     }
-  }, [userWallet]);
+  }, [userWallet, stake]);
 
   return (
     <FormContainerUI title="Stake Vanish">
@@ -201,10 +210,10 @@ export const StakeVanishForm = () => {
           }
         />
 
-        <StakeInfo amount={depositInfo ? parseInt(depositInfo[0]) : 0} apr="100" />
+        <StakeInfo amount={depositInfo ? formatUnits(depositInfo[0], vanishToken?.decimals)  : 0} apr="100" />
 
-        <Button color="primary" disabled={isSubmitting} type="submit">
-          {stake ? claimableAmount > 0 ? "Claim" : allowance > 0 ? `Stake (${allowance} Approved)` : "Approve" : "Unstake"} {isSubmitting && "..."}
+        <Button color="primary" disabled={isLoading} type="submit">
+          {stake ? claimableAmount > 0 ? "Claim" : allowance > 0 ? `Stake (${allowance} Approved)` : "Approve" : "Unstake"} {isLoading && "..."}
         </Button>
       </form>
     </FormContainerUI>
